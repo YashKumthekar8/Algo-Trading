@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    {{code|safe}}
+    {% if user.is_authenticated %}
+    {% if id == 0 %}
+       <form method="post" action="">
+         {% csrf_token %}
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Quantity</span>
+            </div>
+            <input type="text" class="form-control" placeholder="quantity" aria-label="quantity" aria-describedby="basic-addon1" name="quantity" value="{{quantity}}">
+          </div>
+           <center> <button type="submit" name="buy" class="btn btn-primary">Buy</button> <button name="sell" type="submit" class="btn btn-danger">Sell</button></center>  
+       </form> 
+    {% endif %}
+    {% endif %}
+{% endblock content %}

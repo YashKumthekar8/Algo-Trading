@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#location2{
+    display:none;
+}
+</style>     
+
+
+<div id="myDropdown2" class="input-group mb-3 dropdown">  
+      
+       <input type="text" class="form-control" placeholder="Enter Company's to get the news" aria-label="Recipient's username" aria-describedby="basic-addon2" id="myInput2" onkeyup="filterFunction2()">
+       
+       <button class="input-group-text" onclick="myFunction2()" id="basic-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg></button>
+
+</div>
+
+<div id="location2">
+    {% for i in CompanyNames %}
+       <p class="a2 border  border-dark"><a href="/company-news/{{i}}/">{{i}}</a></p> 
+    {% endfor %}
+</div>
+   
+
+{% if not available %}
+    <br>
+    <br>
+    <center>
+        <div class="container">
+            <b>{{cmpData}}</b>
+        </div>
+    </center>
+{% else %}
+
+{% for i in cmpData %}
+
+    
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="h3">{{i.title}}</h3>
+    </div>
+    <div class="card-body">
+        {{i.description}}
+        <br>
+        <br>
+        <img class="img-fluid" src="{{i.urlToImage}}">
+        <br>
+        <br>
+        {{i.content}}
+        <br>
+        <br>
+        <p><b>Source : {{i.source.name}}</b> &nbsp &nbsp <b>Published At : {{i.publishedAt}}</b> </p>
+        <p>For more details <a href="{{i.url}}">click here</a></p>
+    </div>
+</div>
+
+<br>
+
+{%endfor%}
+
+
+
+{% endif %}
+
+<script>
+
+    function myFunction2() {
+        document.getElementById("myDropdown2").classList.toggle("show");
+    }
+
+    function filterFunction2() {
+        var input, filter, ul, li, a, i;
+        document.getElementById("location2").style.display="block";
+        input = document.getElementById("myInput2");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown2");
+        a = document.getElementsByClassName("a2");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+                     
+        }
+
+        if(input.value.length==0)
+          document.getElementById("location2").style.display="none";
+
+    }
+
+</script>    
+
+{% endblock content %}

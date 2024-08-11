@@ -1,0 +1,118 @@
+{% comment %} {% extends "base.html" %}
+{% block content %}
+
+<br>
+<br>
+ {% endcomment %}
+ {% load static %}
+ <!doctype html>
+ <html lang="en">
+   <head>
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+ 
+     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+ 
+     <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+ 
+     <link rel="stylesheet" href="fonts/icomoon/style.css">
+ 
+     <link rel="stylesheet" href="css/select2.min.css">
+     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     
+     <!-- Style -->
+     <link rel="stylesheet" href="css/style.css">
+ 
+     <title>Portfolio</title>
+   </head>
+   <body>
+   
+ 
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/static/fonts/icomoon/style.css">
+
+<link rel="stylesheet" href="/static/css/select2.min.css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            {% comment %} <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a> {% endcomment %}
+            <a class="nav-item nav-link" href="/blog/">Blog</a>
+          </div>
+          
+          
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/newsSection/">News Section</a>
+              {% if user.is_authenticated %}
+                   <a class="nav-item nav-link" href="/portfolio/">Portfolio</a>
+              {% endif %}
+
+            </div>
+          
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+              <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+              <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+<!-- Style -->
+<link rel="stylesheet" href="/static/css/style.css">]
+<form action="" method="POST">
+    {% csrf_token %}
+  <div class="content">
+    <h2 class="text-center">Select Company names to add </h2>
+    <div class="container text-left">
+      <div class="row justify-content-center">
+        <div class="col-7 text-center">
+          <p class="text-black">Names seperate with comma ","</p>
+          <select class="js-multiple-select form-control" name="select" multiple="multiple">
+            
+            {% for i in CompanyNames %}
+            <option>{{i}}</option> 
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+     <center><button type="submit" class="btn btn-primary">Apply</button></center>
+    
+</form>    
+
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/select2.min.js"></script>
+    <script src="/static/js/main.js"></script>
+  
+
+{% comment %} {% endblock content %} {% endcomment %}
+</body>
+</html>

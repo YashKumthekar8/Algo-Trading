@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    {% if title %}
+        <title>Django Blog - {{ title }}</title>
+    {% else %}
+        <title>Django Blog</title>
+    {% endif %}
+    <style>
+        #location1{
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="/newsSection/">News Section</a>
+                <a class="nav-item nav-link" href="/company-information/">Company Information</a>
+              </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+     
+<div id="myDropdown1" class="input-group mb-3 dropdown">  
+      
+       <input type="text" class="form-control" placeholder="Enter Company's to get the information" aria-label="Recipient's username" aria-describedby="basic-addon2" id="myInput1" onkeyup="filterFunction1()">
+       
+       <button class="input-group-text" onclick="myFunction1()" id="basic-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg></button>
+
+</div>
+
+<div id="location1">
+    {% for i in CompanyNames %}
+       <p class="a1 border  border-dark"><a href="/company-information/{{i}}/">{{i}}</a></p> 
+    {% endfor %}
+</div>
+
+{% if id == 1 %}
+<br>
+<br>
+<center><b>No Company Selected Please Select any Company</b></center>
+{% else %}
+    <br>
+    <form method="POST" action=""> 
+         {% csrf_token %}
+         <div class="container">
+         
+          <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Quantity</label>
+          <div class="col-sm-10">
+            <input type="number" step="1"  name="quantity" class="form-control"  placeholder="Enter Quantity for buy or sell" min="1" value="{{quantity}}">
+        </div>
+      </div>
+        <center> <button name="buy" class="btn btn-primary" type="submit">Buy</button> <button name="sell" class="btn btn-danger" type="submit">Sell</button>  </center>
+      </div>
+    </form>  
+    <br>
+    <br>
+   {{code|safe}}
+{% endif %}
+
+<script>
+
+    function myFunction1() {
+        document.getElementById("myDropdown1").classList.toggle("show");
+    }
+
+    function filterFunction1() {
+        var input, filter, ul, li, a, i;
+        document.getElementById("location1").style.display="block";
+        input = document.getElementById("myInput1");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown1");
+        a = document.getElementsByClassName("a1");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+                     
+        }
+
+        if(input.value.length==0)
+          document.getElementById("location1").style.display="none";
+
+    }
+
+</script>    
+
+</body>
+</html>
